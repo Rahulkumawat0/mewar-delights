@@ -1,0 +1,56 @@
+.food-card {
+  background: #fff8ee;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.food-card:hover {
+  transform: translateY(-6px);
+}
+
+.food-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.food-info {
+  padding: 14px;
+}
+
+.food-info h5 {
+  color: #5a0f16;
+  margin-bottom: 6px;
+}
+
+.food-info p {
+  font-size: 14px;
+  color: #555;
+}
+
+.food-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.food-footer span {
+  font-weight: bold;
+  color: #7a1b26;
+}
+
+.food-footer button {
+  background: #7a1b26;
+  color: #ffd700;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.addToCartbtn:hover {
+    background: #ffd700;
+    color: #5a0f16;
+}

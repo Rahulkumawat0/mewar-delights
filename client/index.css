@@ -1,0 +1,9 @@
+:root {
+  --royal-font: "Cinzel", serif;
+  --body-font: "Cormorant Garamond", serif;
+}
+
+body {
+  font-family: var(--body-font);
+  background-color: #fffaf3;
+}

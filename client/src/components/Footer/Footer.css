@@ -1,0 +1,79 @@
+/* ROYAL FOOTER */
+
+/* Footer Logo */
+.footer-logo {
+  max-width: 140px;
+}
+
+@media (max-width: 768px) {
+  .footer-logo {
+    max-width: 120px;
+  }
+}
+
+
+.royal-footer {
+  background-color: #6b0f1a;
+  color: #f5e6c8;
+  padding: 60px 0 20px;
+  margin-top: 60px;
+}
+
+.footer-section h4,
+.footer-section h5 {
+  font-family: var(--royal-font);
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+.footer-section p, a,
+.footer-section li {
+  font-family: var(--body-font);
+  font-size: 0.95rem;
+  color: #f5e6c8;
+  text-decoration: none;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #f5e6c8;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #ffd700;
+}
+
+
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.footer-section li:hover {
+  color: #ffd700;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #e5d3a3;
+}
+
+hr {
+  border-color: rgba(255, 215, 0, 0.4);
+}
