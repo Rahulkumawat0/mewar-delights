@@ -1,5 +1,11 @@
 import "./Home.css";
 import { Link } from "react-router-dom";
+import banner1 from "/src/assets/images/sweets-banner-1.png"
+import banner2 from "/src/assets/images/daal-baati-chruma-platter.png"
+import banner3 from "/src/assets/images/sweets-banner.png"
+import cardImg1 from "/src/assets/images/daal-baati-chruma-platter.png"
+import cardImg2 from "/src/assets/images/gatte-ki-sabji.png"
+import cardImg3 from "/src/assets/images/ker-sangri.png"
 
 function Home() {
   return (
@@ -24,12 +30,12 @@ function Home() {
                 {/* Mobile image */}
                 <source
                 media="(max-width: 768px)"
-                srcSet="/src/assets/images/sweets-banner-1.png"
+                srcSet={banner1}
                 />
 
                 {/* Desktop image (default) */}
                 <img
-                src="/src/assets/images/sweets-banner-1.png"
+                src={banner1}
                 className="d-block w-100 carousel-img"
                 alt="Dal Baati Churma"
                 />
@@ -45,12 +51,12 @@ function Home() {
                 {/* Mobile image */}
                 <source
                 media="(max-width: 768px)"
-                srcSet="/src/assets/images/daal-baati-chruma-platter.png"
+                srcSet={banner2}
                 />
 
                 {/* Desktop image (default) */}
                 <img
-                src="/src/assets/images/daal-baati-chruma-platter.png"
+                src={banner2}
                 className="d-block w-100 carousel-img"
                 alt="Rajasthani Thali"
                 />
@@ -66,12 +72,12 @@ function Home() {
                 {/* Mobile image */}
                 <source
                 media="(max-width: 768px)"
-                srcSet="/src/assets/images/sweets-banner.png"
+                srcSet={banner3}
                 />
 
                 {/* Desktop image (default) */}
                 <img
-                src="/src/assets/images/sweets-banner.png"
+                src={banner3}
                 className="d-block w-100 carousel-img"
                 alt="Indian Sweets"
                 />
@@ -96,7 +102,7 @@ function Home() {
             <div className="col-md-4">
               <div className="dish-card">
                 <img
-                    src="/src/assets/images/daal-baati-chruma-platter.png"
+                    src={cardImg1}
                     alt="Dal Baati Churma"
                     className="dish-img img-fluid"
                 />
@@ -108,7 +114,7 @@ function Home() {
             <div className="col-md-4">
               <div className="dish-card">
                 <img
-                    src="/src/assets/images/gatte-ki-sabji.png"
+                    src={cardImg2}
                     alt="Gatte ki Sabji"
                     className="dish-img img-fluid" 
                 />
@@ -120,7 +126,7 @@ function Home() {
             <div className="col-md-4">
               <div className="dish-card">
                 <img
-                    src="/src/assets/images/ker-sangri.png"
+                    src={cardImg3}
                     alt="Gatte ki Sabji"
                     className="dish-img img-fluid" 
                 />
