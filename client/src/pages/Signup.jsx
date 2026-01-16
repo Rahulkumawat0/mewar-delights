@@ -13,7 +13,7 @@ export default function Signup() {
   const onSubmit = async (data) => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/auth/register",
+        "https://mewar-delights-api.onrender.com/api/auth/register",
         {
           method: "POST",
           headers: {
