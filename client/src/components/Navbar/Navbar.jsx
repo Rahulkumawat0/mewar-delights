@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/images/logo.png";
 import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 
 
 function Navbar() {
-  const [isLoggedIn] = useState(false);
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
   const { cartItems } = useCart();
 
   const cartCount = cartItems.reduce(
@@ -36,9 +38,11 @@ function Navbar() {
                 )}
             </button>
           </Link>
-          <button className="icon-btn">
-            {isLoggedIn ? "My Account" : "Login"}
-          </button>
+          <Link to={isLoggedIn ? "/account" : "/login"}>
+            <button className="icon-btn">
+              {isLoggedIn ? "My Account" : "Login"}
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -86,7 +90,11 @@ function Navbar() {
           <li>📞 +91 98765 43210</li>
           <li>✉️ support@mewardelights.com</li>
           <li className="divider"></li>
-          <li>{isLoggedIn ? "My Account" : "Login"}</li>
+          <li>
+            <Link to={isLoggedIn ? "/signup" : "/login"}>
+              {isLoggedIn ? "My Account" : "Login"}
+            </Link>
+          </li>
         </ul>
       </div>
 

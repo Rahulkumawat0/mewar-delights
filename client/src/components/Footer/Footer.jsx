@@ -1,8 +1,12 @@
 import "./Footer.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { useAuth } from "../../context/AuthContext";
 
 function Footer() {
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
+
   return (
     <footer className="royal-footer">
       <div className="container">
@@ -27,7 +31,11 @@ function Footer() {
             <ul className="footer-links">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/menu">Menu</Link></li>
-                <li><Link to="/menu">Login</Link></li>
+                <li>
+                  <Link to={isLoggedIn ? "/account" : "/login"}>
+                    {isLoggedIn ? "My Account" : "Login"}
+                  </Link>
+                </li>
             </ul>
           </div>
 

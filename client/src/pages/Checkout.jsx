@@ -17,6 +17,10 @@ function Checkout() {
   const deliveryCharge = 50;
   const total = subtotal + deliveryCharge;
 
+  const handlePlaceOrder = () => {
+    alert("Order placed successfully!");
+  }
+
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4" style={{ color: "#5a0f16" }}>
@@ -111,8 +115,8 @@ function Checkout() {
                   </div>
 
                   {/* AUTH PLACEHOLDER */}
-                  <Link to="/login" className="btn btn-dark w-100">
-                    Login to Place Order
+                  <Link to="/" className="btn btn-dark w-100">
+                    Place Order
                   </Link>
                 </>
               )}
