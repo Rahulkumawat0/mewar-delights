@@ -1,80 +1,209 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import "./Account.css";
 
 export default function Account() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [memberSince, setMemberSince] = useState("");
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    // Format the member since date
+    const joinDate = new Date();
+    setMemberSince(joinDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }));
+  }, [user, navigate]);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+  if (!user) {
+    return null;
+  }
+
   return (
-    <div
-      className="container-fluid py-5"
-      style={{ backgroundColor: "#fff7ed", minHeight: "100vh" }}
-    >
-      <div className="container">
-        {/* Page Title */}
-        <div className="text-center mb-5">
-          <h2 className="fw-bold" style={{ color: "#6b0f1a" }}>
-            My Account
-          </h2>
-          <p className="text-muted">
-            Manage your profile & orders at Mewar Delight
-          </p>
+    <div className="account-page">
+      {/* HERO SECTION */}
+      <div className="account-hero">
+        <div className="hero-overlay"></div>
+        <div className="hero-content">
+          <h1>Welcome, {user.name}! 👋</h1>
+          <p>Manage your Mewar Delights account</p>
         </div>
+      </div>
 
-        <div className="row justify-content-center">
-          {/* Profile Card */}
-          <div className="col-md-5 mb-4">
-            <div className="card shadow border-0 rounded-4">
-              <div className="card-body p-4">
-                <h5
-                  className="fw-semibold mb-3"
-                  style={{ color: "#6b0f1a" }}
-                >
-                  Profile Information
-                </h5>
+      {/* MAIN CONTENT */}
+      <div className="account-container">
+        <div className="container-fluid">
+          <div className="row g-4">
+            {/* PROFILE CARD */}
+            <div className="col-lg-4 col-md-6">
+              <div className="profile-card">
+                <div className="profile-header">
+                  <div className="profile-avatar">
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
+                </div>
 
-                <p className="mb-2">
-                  <strong>Name:</strong> Rahul Kumawat
-                </p>
-                <p className="mb-2">
-                  <strong>Email:</strong> rahul@example.com
-                </p>
-                <p className="mb-4">
-                  <strong>Member Since:</strong> Jan 2026
-                </p>
+                <div className="profile-body">
+                  <h3 className="profile-name">{user.name}</h3>
+                  
+                  <div className="profile-details">
+                    <div className="detail-item">
+                      <span className="detail-label">📧 Email</span>
+                      <p className="detail-value">{user.email}</p>
+                    </div>
 
-                <button className="btn btn-outline-danger w-100">
-                  Logout
-                </button>
+                    <div className="detail-item">
+                      <span className="detail-label">📅 Member Since</span>
+                      <p className="detail-value">{memberSince}</p>
+                    </div>
+
+                    <div className="detail-item">
+                      <span className="detail-label">✨ Account Status</span>
+                      <p className="detail-value active-status">Active</p>
+                    </div>
+                  </div>
+
+                  <button className="btn-logout" onClick={handleLogout}>
+                    🚪 Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* QUICK STATS */}
+            <div className="col-lg-4 col-md-6">
+              <div className="stats-card">
+                <div className="stat-item">
+                  <span className="stat-icon">🛒</span>
+                  <div className="stat-content">
+                    <h4>Orders</h4>
+                    <p className="stat-number">0</p>
+                  </div>
+                </div>
+
+                <div className="stat-item">
+                  <span className="stat-icon">❤️</span>
+                  <div className="stat-content">
+                    <h4>Favorites</h4>
+                    <p className="stat-number">0</p>
+                  </div>
+                </div>
+
+                <div className="stat-item">
+                  <span className="stat-icon">⭐</span>
+                  <div className="stat-content">
+                    <h4>Loyalty Points</h4>
+                    <p className="stat-number">0</p>
+                  </div>
+                </div>
+
+                <div className="stat-item">
+                  <span className="stat-icon">🎁</span>
+                  <div className="stat-content">
+                    <h4>Offers</h4>
+                    <p className="stat-number">3</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* QUICK ACTIONS */}
+            <div className="col-lg-4 col-md-6">
+              <div className="actions-card">
+                <h3 className="actions-title">Quick Actions</h3>
+
+                <div className="action-list">
+                  <a href="/menu" className="action-btn">
+                    <span className="action-icon">🍲</span>
+                    <div className="action-text">
+                      <h5>Browse Menu</h5>
+                      <p>Explore our delicious dishes</p>
+                    </div>
+                    <span className="arrow">→</span>
+                  </a>
+
+                  <a href="/cart" className="action-btn">
+                    <span className="action-icon">🛍️</span>
+                    <div className="action-text">
+                      <h5>View Cart</h5>
+                      <p>Check your shopping cart</p>
+                    </div>
+                    <span className="arrow">→</span>
+                  </a>
+
+                  <button className="action-btn" disabled>
+                    <span className="action-icon">📋</span>
+                    <div className="action-text">
+                      <h5>My Orders</h5>
+                      <p>Coming Soon</p>
+                    </div>
+                    <span className="arrow">→</span>
+                  </button>
+
+                  <button className="action-btn" disabled>
+                    <span className="action-icon">⚙️</span>
+                    <div className="action-text">
+                      <h5>Settings</h5>
+                      <p>Coming Soon</p>
+                    </div>
+                    <span className="arrow">→</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Orders Card */}
-          <div className="col-md-5 mb-4">
-            <div className="card shadow border-0 rounded-4 h-100">
-              <div className="card-body p-4">
-                <h5
-                  className="fw-semibold mb-3"
-                  style={{ color: "#6b0f1a" }}
-                >
-                  My Orders
-                </h5>
+      {/* BENEFITS SECTION */}
+      <div className="benefits-section">
+        <div className="container-fluid">
+          <h2 className="section-title">Why Order from Mewar Delights?</h2>
+          <div className="benefits-grid">
+            <div className="benefit-card">
+              <div className="benefit-icon">🏆</div>
+              <h4>Royal Recipes</h4>
+              <p>Authentic dishes from the heart of Mewar</p>
+            </div>
 
-                <p className="text-muted">
-                  You haven’t placed any orders yet.
-                </p>
+            <div className="benefit-card">
+              <div className="benefit-icon">🌟</div>
+              <h4>Fresh & Quality</h4>
+              <p>Carefully selected ingredients for best taste</p>
+            </div>
 
-                <Link to="/menu" className="btn btn-primary w-100">
-                  Explore Traditional Sweets
-                </Link>
-              </div>
+            <div className="benefit-card">
+              <div className="benefit-icon">⚡</div>
+              <h4>Quick Delivery</h4>
+              <p>Fast and reliable delivery to your doorstep</p>
+            </div>
+
+            <div className="benefit-card">
+              <div className="benefit-icon">💝</div>
+              <h4>Special Offers</h4>
+              <p>Exclusive deals and loyalty rewards</p>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Footer Note */}
-        <div className="text-center mt-5">
-          <small className="text-muted">
-            Cooked with Tradition • Passed through Generations
-          </small>
-        </div>
+      {/* FOOTER NOTE */}
+      <div className="account-footer">
+        <p>🎭 Cooked with Tradition • Passed through Generations 🎭</p>
+        <p className="small-text">© 2026 Mewar Delights. All rights reserved.</p>
       </div>
     </div>
   );
