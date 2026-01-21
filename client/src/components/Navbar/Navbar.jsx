@@ -72,20 +72,20 @@ function Navbar() {
       {/* DESKTOP MENU */}
       <nav className="menu-bar desktop-only">
         <ul className="menu-list">
-          <li><Link to="/menu">All Items</Link></li>
-          <li><Link to="/menu">Main Course</Link></li>
-          <li><Link to="/menu">Snacks</Link></li>
-          <li><Link to="/menu">Sweets</Link></li>
+          <li><Link to="/products/all">All Items</Link></li>
+          <li><Link to="/products/main">Main Course</Link></li>
+          <li><Link to="/products/snacks">Snacks</Link></li>
+          <li><Link to="/products/sweets">Sweets</Link></li>
         </ul>
       </nav>
 
       {/* MOBILE MENU */}
       <div id="mobileMenu" className="collapse mobile-menu">
         <ul>
-          <li><Link to="/menu">All Items</Link></li>
-          <li><Link to="/menu">Main Course</Link></li>
-          <li><Link to="/menu">Snacks</Link></li>
-          <li><Link to="/menu">Sweets</Link></li>
+          <li><Link to="/products/all">All Items</Link></li>
+          <li><Link to="/products/main">Main Course</Link></li>
+          <li><Link to="/products/snacks">Snacks</Link></li>
+          <li><Link to="/products/sweets">Sweets</Link></li>
           <li className="divider"></li>
           <li>📞 +91 98765 43210</li>
           <li>✉️ support@mewardelights.com</li>

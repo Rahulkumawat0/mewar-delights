@@ -5,6 +5,7 @@ import Footer from "./components/Footer/Footer";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
+import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
@@ -19,6 +20,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/products/main" element={<Products category="main" />} />
+        <Route path="/products/snacks" element={<Products category="snacks" />} />
+        <Route path="/products/sweets" element={<Products category="sweets" />} />
+        <Route path="/products/all" element={<Products category="all" />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={
           <ProtectedRoute>
