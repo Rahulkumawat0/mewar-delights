@@ -703,15 +703,42 @@
   }
 
   .section-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 40px;
+  }
+
+  .category-grid {
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-card {
+    padding: 30px 20px;
+  }
+
+  .category-icon {
+    font-size: 3.2rem;
+  }
+
+  .category-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .category-card p {
+    font-size: 0.9rem;
   }
 
   .why-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .cta-title {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 
   .cta-subtitle {
@@ -732,10 +759,6 @@
 
   .benefit-item {
     padding: 25px 15px;
-  }
-
-  .category-grid {
-    gap: 20px;
   }
 
   .newsletter-form {
@@ -778,23 +801,35 @@
   }
 
   .section-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
   }
 
   .section-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+  }
+
+  .category-grid {
+    gap: 15px;
   }
 
   .category-card {
-    padding: 25px 20px;
+    padding: 20px 15px;
   }
 
   .category-icon {
-    font-size: 3rem;
+    font-size: 2.8rem;
+    margin-bottom: 15px;
   }
 
   .category-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    margin: 12px 0 6px 0;
+  }
+
+  .category-card p {
+    font-size: 0.85rem;
   }
 
   .dish-card {
@@ -828,6 +863,24 @@
 
   .newsletter-box h3 {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .category-card h3 {
+    font-size: 1rem;
+  }
+
+  .category-icon {
+    font-size: 2.2rem;
+  }
+
+  .cta-title {
+    font-size: 1rem;
   }
 }
 
