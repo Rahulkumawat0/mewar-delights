@@ -29,7 +29,7 @@ const Cart = () => {
           <div className="col-lg-8">
             {cartItems.map((item) => (
               <div
-                key={item.id}
+                key={item._id || item.id}
                 className="card mb-3 shadow-sm border-0"
               >
                 <div className="row g-0 align-items-center">
@@ -47,16 +47,16 @@ const Cart = () => {
 
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="d-flex align-items-center">
-                          <button className="btn btn-outline-secondary btn-sm" onClick={() => updateQuantity(item.id, -1)}>
+                          <button className="btn btn-outline-secondary btn-sm" onClick={() => updateQuantity(item._id || item.id, -1)}>
                             −
                           </button>
                           <span className="mx-3">{item.quantity}</span>
-                          <button className="btn btn-outline-secondary btn-sm" onClick={() => updateQuantity(item.id, 1)}>
+                          <button className="btn btn-outline-secondary btn-sm" onClick={() => updateQuantity(item._id || item.id, 1)}>
                             +
                           </button>
                         </div>
 
-                        <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCart(item.id)}>
+                        <button className="btn btn-outline-danger btn-sm" onClick={() => removeFromCart(item._id || item.id)}>
                           Remove
                         </button>
                       </div>
