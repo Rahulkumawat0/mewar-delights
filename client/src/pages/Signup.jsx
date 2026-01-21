@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config/api";
+import "./Auth.css";
 
 export default function Signup() {
   const {
@@ -40,27 +41,21 @@ export default function Signup() {
   };
 
   return (
-    <div
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh", backgroundColor: "#fff7ed" }}
-    >
-      <div className="card shadow-lg border-0" style={{ width: "420px" }}>
-        <div className="card-body p-4">
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-card-body">
 
-          <h3 className="text-center fw-bold mb-2" style={{ color: "#7c2d12" }}>
-            Join Mewar Delight
-          </h3>
-          <p className="text-center text-muted mb-4">
-            Cooked with tradition, passed through generations
-          </p>
+          <h3 className="auth-title">Join Mewar Delights</h3>
+          <p className="auth-subtitle">Cooked with tradition, passed through generations</p>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
 
             {/* Name */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Full Name</label>
               <input
                 className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                placeholder="Enter your full name"
                 {...register("name", { required: "Name is required" })}
               />
               {errors.name && (
@@ -69,11 +64,12 @@ export default function Signup() {
             </div>
 
             {/* Email */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Email</label>
               <input
                 type="email"
                 className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                placeholder="you@example.com"
                 {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
@@ -82,11 +78,12 @@ export default function Signup() {
             </div>
 
             {/* Password */}
-            <div className="mb-3">
+            <div className="form-group">
               <label className="form-label">Password</label>
               <input
                 type="password"
                 className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                placeholder="••••••••"
                 {...register("password", {
                   required: "Password is required",
                   minLength: { value: 6, message: "Min 6 characters" }
@@ -99,17 +96,14 @@ export default function Signup() {
               )}
             </div>
 
-            <button
-              type="submit"
-              className="btn w-100 hero-btn"
-            >
+            <button type="submit" className="auth-btn">
               Create Account
             </button>
           </form>
 
-          <p className="text-center mt-3 mb-0">
+          <p className="auth-footer">
             Already have an account?{" "}
-            <Link to="/login" className="fw-semibold text-decoration-none" style={{ color: "#ffd700" }}>
+            <Link to="/login">
               Login
             </Link>
           </p>

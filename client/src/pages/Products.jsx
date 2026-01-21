@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import FoodCard from "../components/FoodCard/FoodCard";
 import { API_BASE_URL } from "../config/api";
+import "./Products.css";
 
 function Products({ category }) {
   const [products, setProducts] = useState([]);
@@ -44,10 +45,10 @@ function Products({ category }) {
 
   if (loading) {
     return (
-      <div className="container my-5">
-        <h2 className="text-center mb-4">{categoryTitles[category] || "Our Menu"}</h2>
-        <div className="text-center">
-          <p>Loading products...</p>
+      <div className="products-page">
+        <div className="products-container">
+          <div className="loading-spinner"></div>
+          <p className="loading-message">Loading delicious products...</p>
         </div>
       </div>
     );
@@ -55,10 +56,11 @@ function Products({ category }) {
 
   if (error) {
     return (
-      <div className="container my-5">
-        <h2 className="text-center mb-4">{categoryTitles[category] || "Our Menu"}</h2>
-        <div className="alert alert-danger">
-          Error loading products: {error}
+      <div className="products-page">
+        <div className="products-container">
+          <div className="alert-error">
+            ❌ Error loading products: {error}
+          </div>
         </div>
       </div>
     );
@@ -66,24 +68,30 @@ function Products({ category }) {
 
   if (products.length === 0) {
     return (
-      <div className="container my-5">
-        <h2 className="text-center mb-4">{categoryTitles[category] || "Our Menu"}</h2>
-        <div className="alert alert-info">
-          No products found in this category.
+      <div className="products-page">
+        <div className="products-container">
+          <div className="alert-info">
+            ℹ️ No products found in this category.
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container my-5">
-      <h2 className="text-center mb-4">{categoryTitles[category] || "Our Menu"}</h2>
-      <div className="row g-4">
-        {products.map(food => (
-          <div className="col-lg-3 col-md-4 col-sm-6" key={food._id}>
-            <FoodCard food={food} />
-          </div>
-        ))}
+    <div className="products-page">
+      <div className="container">
+        <div className="products-header">
+          <h2 className="products-title">{categoryTitles[category] || "Our Menu"}</h2>
+          <p className="products-subtitle">Authentic Rajasthani flavors handcrafted with tradition</p>
+        </div>
+        <div className="products-grid">
+          {products.map(food => (
+            <div key={food._id}>
+              <FoodCard food={food} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import FoodCard from "../components/FoodCard/FoodCard";
 import { API_BASE_URL } from "../config/api";
+import "./Products.css";
 
 function Menu() {
   const [products, setProducts] = useState([]);
@@ -31,10 +32,10 @@ function Menu() {
 
   if (loading) {
     return (
-      <div className="container my-5">
-        <h2 className="text-center mb-4">Our Royal Menu</h2>
-        <div className="text-center">
-          <p>Loading products...</p>
+      <div className="products-page">
+        <div className="products-container">
+          <div className="loading-spinner"></div>
+          <p className="loading-message">Loading our royal menu...</p>
         </div>
       </div>
     );
@@ -42,24 +43,30 @@ function Menu() {
 
   if (error) {
     return (
-      <div className="container my-5">
-        <h2 className="text-center mb-4">Our Royal Menu</h2>
-        <div className="alert alert-danger">
-          Error loading products: {error}
+      <div className="products-page">
+        <div className="products-container">
+          <div className="alert-error">
+            ❌ Error loading products: {error}
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container my-5">
-      <h2 className="text-center mb-4">Our Royal Menu</h2>
-      <div className="row g-4">
-        {products.map(food => (
-          <div className="col-lg-3 col-md-4 col-sm-6" key={food._id}>
-            <FoodCard food={food} />
-          </div>
-        ))}
+    <div className="products-page">
+      <div className="container">
+        <div className="products-header">
+          <h2 className="products-title">Our Royal Menu</h2>
+          <p className="products-subtitle">Discover the finest flavors of authentic Rajasthani cuisine</p>
+        </div>
+        <div className="products-grid">
+          {products.map(food => (
+            <div key={food._id}>
+              <FoodCard food={food} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
