@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { API_BASE_URL } from "../config/api";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } }= useForm();
@@ -9,7 +10,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await fetch("https://mewar-delights-api.onrender.com/api/auth/login", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)

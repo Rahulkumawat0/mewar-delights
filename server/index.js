@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 
 
 
@@ -11,10 +12,13 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "*", 
+  origin: process.env.NODE_ENV === "production" 
+    ? ["https://mewar-delights.vercel.app"] // Frontend URL
+    : "*",
 }));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 app.get("/", (req, res) => {
   res.send("Mewar Delights API Running");

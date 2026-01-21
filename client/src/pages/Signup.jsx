@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config/api";
 
 export default function Signup() {
   const {
@@ -13,7 +14,7 @@ export default function Signup() {
   const onSubmit = async (data) => {
     try {
       const res = await fetch(
-        "https://mewar-delights-api.onrender.com/api/auth/register",
+        `${API_BASE_URL}/api/auth/register`,
         {
           method: "POST",
           headers: {

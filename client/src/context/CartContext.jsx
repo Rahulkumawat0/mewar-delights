@@ -14,11 +14,12 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (food) => {
     setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === food.id);
+      const itemId = food._id || food.id;
+      const existing = prev.find((item) => (item._id || item.id) === itemId);
 
       if (existing) {
         return prev.map((item) =>
-          item.id === food.id
+          (item._id || item.id) === itemId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -29,14 +30,14 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    setCartItems((prev) => prev.filter((item) => (item._id || item.id) !== id));
   };
 
   const updateQuantity = (id, amount) => {
     setCartItems((prev) =>
       prev
         .map((item) =>
-          item.id === id
+          (item._id || item.id) === id
             ? { ...item, quantity: item.quantity + amount }
             : item
         )
