@@ -1,12 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config/api";
 import "./Account.css";
 
 export default function Account() {
-  const { user, logout } = useAuth();
+  const { user, logout, token } = useAuth();
   const navigate = useNavigate();
   const [memberSince, setMemberSince] = useState("");
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [totalSpent, setTotalSpent] = useState(0);
 
   useEffect(() => {
     if (!user) {
@@ -21,16 +25,73 @@ export default function Account() {
       month: "long",
       day: "numeric"
     }));
-  }, [user, navigate]);
+
+    // Fetch user's orders
+    fetchOrders();
+  }, [user, navigate, token]);
+
+  const fetchOrders = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/api/orders/user/${user.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setOrders(data);
+        
+        // Calculate total spent
+        const total = data.reduce((sum, order) => sum + order.totalAmount, 0);
+        setTotalSpent(total);
+      }
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
+  const getStatusBadgeColor = (status) => {
+    const statusColors = {
+      pending: "#ff9800",
+      paid: "#4caf50",
+      processing: "#2196f3",
+      shipped: "#9c27b0",
+      delivered: "#4caf50",
+      cancelled: "#f44336"
+    };
+    return statusColors[status] || "#999";
+  };
+
+  const getStatusIcon = (status) => {
+    const icons = {
+      pending: "⏳",
+      paid: "✅",
+      processing: "⚙️",
+      shipped: "🚚",
+      delivered: "🎉",
+      cancelled: "❌"
+    };
+    return icons[status] || "📦";
+  };
+
   if (!user) {
     return null;
   }
+
+  const recentOrders = orders.slice(0, 3);
 
   return (
     <div className="account-page">
@@ -90,15 +151,15 @@ export default function Account() {
                   <span className="stat-icon">🛒</span>
                   <div className="stat-content">
                     <h4>Orders</h4>
-                    <p className="stat-number">0</p>
+                    <p className="stat-number">{orders.length}</p>
                   </div>
                 </div>
 
                 <div className="stat-item">
-                  <span className="stat-icon">❤️</span>
+                  <span className="stat-icon">💰</span>
                   <div className="stat-content">
-                    <h4>Favorites</h4>
-                    <p className="stat-number">0</p>
+                    <h4>Total Spent</h4>
+                    <p className="stat-number">₹{totalSpent}</p>
                   </div>
                 </div>
 
@@ -106,7 +167,7 @@ export default function Account() {
                   <span className="stat-icon">⭐</span>
                   <div className="stat-content">
                     <h4>Loyalty Points</h4>
-                    <p className="stat-number">0</p>
+                    <p className="stat-number">{Math.floor(totalSpent / 100)}</p>
                   </div>
                 </div>
 
@@ -114,7 +175,7 @@ export default function Account() {
                   <span className="stat-icon">🎁</span>
                   <div className="stat-content">
                     <h4>Offers</h4>
-                    <p className="stat-number">3</p>
+                    <p className="stat-number">{orders.length > 2 ? 3 : 1}</p>
                   </div>
                 </div>
               </div>
@@ -144,14 +205,14 @@ export default function Account() {
                     <span className="arrow">→</span>
                   </a>
 
-                  <button className="action-btn" disabled>
+                  <Link to="/orders" className="action-btn">
                     <span className="action-icon">📋</span>
                     <div className="action-text">
                       <h5>My Orders</h5>
-                      <p>Coming Soon</p>
+                      <p>Track your deliveries</p>
                     </div>
                     <span className="arrow">→</span>
-                  </button>
+                  </Link>
 
                   <button className="action-btn" disabled>
                     <span className="action-icon">⚙️</span>
@@ -167,6 +228,67 @@ export default function Account() {
           </div>
         </div>
       </div>
+
+      {/* RECENT ORDERS SECTION */}
+      {!isLoading && orders.length > 0 && (
+        <div className="recent-orders-section">
+          <div className="container-fluid">
+            <h2 className="section-title">📦 Recent Orders</h2>
+            <div className="recent-orders-grid">
+              {recentOrders.map((order) => (
+                <div key={order._id} className="recent-order-card">
+                  <div className="order-header-mini">
+                    <div className="order-id-mini">Order {order._id.slice(-6).toUpperCase()}</div>
+                    <span
+                      className="status-badge-mini"
+                      style={{ backgroundColor: getStatusBadgeColor(order.status) }}
+                    >
+                      {getStatusIcon(order.status)} {order.status.toUpperCase()}
+                    </span>
+                  </div>
+
+                  <div className="order-body-mini">
+                    <div className="order-info-row">
+                      <span className="label">Items:</span>
+                      <span className="value">{order.items.length}</span>
+                    </div>
+                    <div className="order-info-row">
+                      <span className="label">Amount:</span>
+                      <span className="value fw-bold">₹{order.totalAmount}</span>
+                    </div>
+                    <div className="order-info-row">
+                      <span className="label">Date:</span>
+                      <span className="value">
+                        {new Date(order.createdAt).toLocaleDateString("en-IN", {
+                          month: "short",
+                          day: "numeric",
+                          year: "2-digit"
+                        })}
+                      </span>
+                    </div>
+                  </div>
+
+                  <Link to="/orders" className="view-details-btn">
+                    View Details →
+                  </Link>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-4">
+              <Link to="/orders" className="btn-view-all-orders">
+                View All Orders ({orders.length})
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="loading-section">
+          <p>Loading your orders...</p>
+        </div>
+      )}
 
       {/* BENEFITS SECTION */}
       <div className="benefits-section">
