@@ -163,6 +163,10 @@
   box-shadow: 0 8px 20px rgba(107, 15, 26, 0.3);
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .auth-btn::before {
@@ -176,17 +180,41 @@
   transition: left 0.3s ease;
 }
 
-.auth-btn:hover {
+.auth-btn:hover:not(:disabled) {
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(107, 15, 26, 0.4);
 }
 
-.auth-btn:hover::before {
+.auth-btn:hover:not(:disabled)::before {
   left: 100%;
 }
 
-.auth-btn:active {
+.auth-btn:active:not(:disabled) {
   transform: translateY(-1px);
+}
+
+/* DISABLED STATE - Loading */
+.auth-btn:disabled {
+  opacity: 0.85;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* SPINNER ANIMATION */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2.5px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--accent-color);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* FOOTER LINK */

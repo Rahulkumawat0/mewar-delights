@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { API_BASE_URL } from "../config/api";
 import "./Auth.css";
 
@@ -11,8 +12,10 @@ export default function Signup() {
   } = useForm();
 
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       const res = await fetch(
         `${API_BASE_URL}/api/auth/register`,
@@ -29,6 +32,7 @@ export default function Signup() {
 
       if (!res.ok) {
         alert(result.message);
+        setIsLoading(false);
         return;
       }
 
@@ -37,6 +41,7 @@ export default function Signup() {
     } catch (error) {
       console.error(error);
       alert("Something went wrong");
+      setIsLoading(false);
     }
   };
 
@@ -96,8 +101,14 @@ export default function Signup() {
               )}
             </div>
 
-            <button type="submit" className="auth-btn">
-              Create Account
+            <button type="submit" className="auth-btn" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <span className="spinner"></span> Creating Account...
+                </>
+              ) : (
+                "Create Account"
+              )}
             </button>
           </form>
 
