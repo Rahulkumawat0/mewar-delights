@@ -293,7 +293,7 @@ export default function Account() {
       {/* BENEFITS SECTION */}
       <div className="benefits-section">
         <div className="container-fluid">
-          <h2 className="section-title">Why Order from Mewar Delights?</h2>
+          <h2 className="section-title" style={{ color: "#fff" }}>Why Order from Mewar Delights?</h2>
           <div className="benefits-grid">
             <div className="benefit-card">
               <div className="benefit-icon">🏆</div>
