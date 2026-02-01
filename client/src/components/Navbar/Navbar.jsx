@@ -91,7 +91,7 @@ function Navbar() {
           <li>✉️ support@mewardelights.com</li>
           <li className="divider"></li>
           <li>
-            <Link to={isLoggedIn ? "/signup" : "/login"}>
+            <Link to={isLoggedIn ? "/account" : "/login"}>
               {isLoggedIn ? "My Account" : "Login"}
             </Link>
           </li>
