@@ -1,4 +1,5 @@
 import express from "express";
+import jwt from "jsonwebtoken";
 import Order from "../models/Order.js";
 
 const router = express.Router();
@@ -11,11 +12,11 @@ const verifyToken = (req, res, next) => {
   }
   
   try {
-    // For now, we'll accept the token as-is and let the frontend send userId
-    // In production, you'd verify the JWT here
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = decoded.id;
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Invalid token" });
+    return res.status(401).json({ message: "Invalid or expired token" });
   }
 };
 

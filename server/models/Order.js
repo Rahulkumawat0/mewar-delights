@@ -5,7 +5,8 @@ const orderSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true
+      required: true,
+      index: true
     },
     items: [
       {
@@ -43,7 +44,8 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["pending", "paid", "processing", "shipped", "delivered", "cancelled"],
-      default: "pending"
+      default: "pending",
+      index: true
     },
     paymentMethod: {
       type: String,
@@ -61,5 +63,8 @@ const orderSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Create compound index for user and date queries
+orderSchema.index({ user: 1, createdAt: -1 });
 
 export default mongoose.model("Order", orderSchema);

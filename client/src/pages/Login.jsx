@@ -10,32 +10,49 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
 
   const onSubmit = async (data) => {
     setIsLoading(true);
+    setApiError("");
+
+    // Create abort controller for 8 second timeout
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => abortController.abort(), 8000);
+
     try {
       const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        signal: abortController.signal
       });
 
+      clearTimeout(timeoutId);
       const result = await res.json();
 
       if (!res.ok) {
-        alert(result.message);
+        setApiError(result.message || "Login failed. Please try again.");
         setIsLoading(false);
         return;
       }
 
+      // Successful login
       login(result.user, result.token);
-
-      // 🎯 Redirect after login
+      setIsLoading(false);
       navigate("/");
 
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong. Please try again.");
+      clearTimeout(timeoutId);
+      
+      if (error.name === 'AbortError') {
+        setApiError("Connection timeout. Please check your internet and try again.");
+      } else if (!navigator.onLine) {
+        setApiError("No internet connection. Please check your network.");
+      } else {
+        setApiError("An error occurred. Please try again.");
+        console.error("Login error:", error);
+      }
       setIsLoading(false);
     }
   };
@@ -50,6 +67,13 @@ export default function Login() {
           <h3 className="auth-title">Welcome Back</h3>
           <p className="auth-subtitle">Taste tradition, one login away</p>
 
+          {/* Error Message */}
+          {apiError && (
+            <div className="auth-error-banner">
+              <span>⚠️</span> {apiError}
+            </div>
+          )}
+
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
 
@@ -60,8 +84,13 @@ export default function Login() {
                 type="email"
                 className={`form-control ${errors.email ? "is-invalid" : ""}`}
                 placeholder="you@example.com"
+                disabled={isLoading}
                 {...register("email", {
-                  required: "Email is required"
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email format"
+                  }
                 })}
               />
               {errors.email && (
@@ -78,6 +107,7 @@ export default function Login() {
                 type="password"
                 className={`form-control ${errors.password ? "is-invalid" : ""}`}
                 placeholder="••••••••"
+                disabled={isLoading}
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
