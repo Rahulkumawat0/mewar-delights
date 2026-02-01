@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bcryptjs from "bcryptjs";
 import Product from "./models/Product.js";
+import User from "./models/User.js";
 
 dotenv.config();
 
@@ -44,7 +46,52 @@ const seedProducts = async () => {
     ];
 
     await Product.insertMany(products);
-    console.log("Products seeded successfully");
+    console.log("✓ Products seeded successfully");
+  } catch (error) {
+    console.error("Seeding error:", error);
+  }
+};
+
+const seedAdminUser = async () => {
+  try {
+    // Check if admin already exists
+    const existingAdmin = await User.findOne({ email: "admin@mewardelights.com" });
+    
+    if (existingAdmin) {
+      console.log("✓ Admin user already exists");
+      return;
+    }
+
+    // Hash the password
+    const hashedPassword = await bcryptjs.hash("Admin@2026", 10);
+
+    // Create admin user
+    const adminUser = new User({
+      name: "Mewar Admin",
+      email: "admin@mewardelights.com",
+      password: hashedPassword,
+      role: "admin"
+    });
+
+    await adminUser.save();
+    console.log("✓ Admin user created successfully");
+    console.log("  Email: admin@mewardelights.com");
+    console.log("  Password: Admin@2026");
+  } catch (error) {
+    console.error("Admin seeding error:", error);
+  }
+};
+
+const seed = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("MongoDB Connected for seeding\n");
+
+    // Run both seeding functions
+    await seedProducts();
+    await seedAdminUser();
+
+    console.log("\n✓ All seeding completed successfully!");
     process.exit(0);
   } catch (error) {
     console.error("Seeding error:", error);
@@ -52,4 +99,4 @@ const seedProducts = async () => {
   }
 };
 
-seedProducts();
+seed();

@@ -1,0 +1,156 @@
+/* Admin Orders Specific Styles */
+
+.admin-orders-container {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Alert Styles */
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.alert-dismissible {
+  position: relative;
+  padding-right: 2.5rem;
+}
+
+.btn-close {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* Loader */
+.text-center {
+  text-align: center;
+}
+
+.py-5 {
+  padding: 3rem 0;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  vertical-align: text-bottom;
+  border: 0.25rem solid rgba(0, 0, 0, 0.1);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-border.text-warning {
+  color: #ffd700;
+}
+
+.visually-hidden {
+  display: none;
+}
+
+/* Responsive Table for Small Screens */
+@media (max-width: 768px) {
+  .orders-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .orders-table {
+    min-width: 100%;
+  }
+
+  .controls-row {
+    flex-direction: column;
+  }
+
+  .search-box,
+  .filter-select,
+  .btn-refresh {
+    width: 100%;
+  }
+
+  .search-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

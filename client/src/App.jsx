@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Products from "./pages/Products";
@@ -13,6 +14,7 @@ import OrderHistory from "./pages/OrderHistory";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Account from "./pages/Account";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -44,7 +46,14 @@ function App() {
         } />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/account" element={<Account />} /> 
+        <Route path="/account" element={<Account />} />
+        
+        {/* Admin Routes */}
+        <Route path="/admin/dashboard" element={
+          <ProtectedAdminRoute>
+            <AdminDashboard />
+          </ProtectedAdminRoute>
+        } />
       </Routes>
 
       <Footer />
