@@ -1,5 +1,6 @@
 import "./Home.css";
 import { Link } from "react-router-dom";
+import Newsletter from "../components/Newsletter/Newsletter";
 import banner1 from "/src/assets/images/sweets-banner-1.png"
 import banner2 from "/src/assets/images/daal-baati-chruma-platter.png"
 import banner3 from "/src/assets/images/sweets-banner.png"
@@ -254,18 +255,7 @@ function Home() {
       </section>
 
       {/* NEWSLETTER SECTION */}
-      <section className="newsletter-section">
-        <div className="container">
-          <div className="newsletter-box">
-            <h3>Subscribe to Our Newsletter</h3>
-            <p>Get exclusive offers, recipes, and updates delivered to your inbox</p>
-            <div className="newsletter-form">
-              <input type="email" placeholder="Enter your email" />
-              <button className="btn-subscribe">Subscribe</button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Newsletter />
 
     </div>
   );

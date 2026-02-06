@@ -593,75 +593,37 @@
   transform: translateY(-4px);
 }
 
-/* ============= NEWSLETTER SECTION ============= */
-.newsletter-section {
-  padding: 80px 20px;
-  background: linear-gradient(135deg, rgba(107, 15, 26, 0.08), transparent);
-}
+/* Newsletter styles moved to Newsletter component */
 
-.newsletter-box {
-  background: white;
-  border: 3px solid var(--accent-color);
-  border-radius: 16px;
-  padding: 50px;
+.newsletter-message {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 15px;
+  border-radius: 6px;
   text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: var(--shadow-lg);
+  animation: slideDown 0.3s ease;
 }
 
-.newsletter-box h3 {
-  color: var(--primary-color);
-  font-family: Georgia, serif;
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+.newsletter-message:contains("✅") {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.1);
 }
 
-.newsletter-box p {
-  color: var(--secondary-color);
-  font-size: 1rem;
-  margin-bottom: 25px;
-  line-height: 1.6;
-  font-weight: 500;
+.newsletter-message:contains("❌") {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
 }
 
-.newsletter-form {
-  display: flex;
-  gap: 10px;
-}
-
-.newsletter-form input {
-  flex: 1;
-  padding: 14px 20px;
-  border: 2px solid #e0e0e0;
-  border-radius: 50px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.newsletter-form input:focus {
-  outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-}
-
-.btn-subscribe {
-  padding: 14px 35px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: var(--accent-color);
-  border: none;
-  border-radius: 50px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
-
-.btn-subscribe:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ============= RESPONSIVE ============= */
