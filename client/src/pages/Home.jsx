@@ -116,7 +116,7 @@ function Home() {
           <p className="section-subtitle">Handpicked delicacies loved across Rajasthan</p>
 
           <div className="row g-4">
-            <div className="col-md-4 col-sm-6">
+            <div className="col-lg-4 col-md-6 col-sm-6 col-12">
               <div className="dish-card">
                 <div className="dish-img-wrapper">
                   <img src={cardImg1} alt="Dal Baati Churma" className="dish-img" />
@@ -135,7 +135,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="col-md-4 col-sm-6">
+            <div className="col-lg-4 col-md-6 col-sm-6 col-12">
               <div className="dish-card">
                 <div className="dish-img-wrapper">
                   <img src={cardImg2} alt="Gatte ki Sabzi" className="dish-img" />
@@ -154,7 +154,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="col-md-4 col-sm-6">
+            <div className="col-lg-4 col-md-6 col-sm-6 col-12">
               <div className="dish-card">
                 <div className="dish-img-wrapper">
                   <img src={cardImg3} alt="Ker Sangri" className="dish-img" />
