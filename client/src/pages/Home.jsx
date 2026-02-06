@@ -112,7 +112,7 @@ function Home() {
       {/* FEATURED SIGNATURE DISHES */}
       <section className="featured-section">
         <div className="container">
-          <h2 className="section-title">⭐ Signature Dishes</h2>
+          <h2 className="section-title">Signature Dishes</h2>
           <p className="section-subtitle">Handpicked delicacies loved across Rajasthan</p>
 
           <div className="row g-4">
@@ -212,7 +212,7 @@ function Home() {
       {/* TESTIMONIALS SECTION */}
       <section className="testimonials-section">
         <div className="container">
-          <h2 className="section-title">💬 What Our Customers Say</h2>
+          <h2 className="section-title">What Our Customers Say</h2>
 
           <div className="testimonials-grid">
             <div className="testimonial-card">
